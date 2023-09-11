@@ -1,18 +1,31 @@
-import type { State } from '../app/App';
+import Notification from '../notification/Notification';
 
-const Statistics = ({ state }: { state: State }) => {
+const Statistics = ({
+  good,
+  neutral,
+  bad,
+  total,
+  positivePercentage,
+}: {
+  good: number;
+  neutral: number;
+  bad: number;
+  total: number;
+  positivePercentage: string;
+}) => {
   return (
     <>
-      <h2>
-        <b>Statistics</b>
-      </h2>
-      <div className='flex flex-col'>
-        {Object.entries(state).map(([name, value]) => (
-          <span key={name}>
-            {name}: {value}
-          </span>
-        ))}
-      </div>
+      {total ? (
+        <div className='flex flex-col'>
+          <span>Good: {good}</span>
+          <span>Neutral: {neutral}</span>
+          <span>Bad: {bad}</span>
+          <span>Total: {total}</span>
+          <span>Positive feedback: {positivePercentage}</span>{' '}
+        </div>
+      ) : (
+        <Notification message='There is no feedback' />
+      )}
     </>
   );
 };
