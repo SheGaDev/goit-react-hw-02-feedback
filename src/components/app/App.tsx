@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Statistics from '../statistics/Statistics';
 import FeedbackOptions from '../feedback/FeedbackOptions';
+import Notification from '../notification/Notification';
 import Section from '../section/Section';
 
 export type State = {
@@ -37,11 +38,15 @@ export default class App extends Component<object, State> {
           <FeedbackOptions options={this.state} onLeaveFeedback={this.onLeaveFeedback} />
         </Section>
         <Section title={'Statistics'}>
-          <Statistics
-            {...this.state}
-            total={this.totalCountFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
+          {this.totalCountFeedback() ? (
+            <Statistics
+              {...this.state}
+              total={this.totalCountFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification message='There is no feedback' />
+          )}
         </Section>
       </>
     );
